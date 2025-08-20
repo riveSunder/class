@@ -194,6 +194,6 @@ if __name__ == "__main__":
 
     world.run_sim()
     fig, ax = world.plot_curve()
-    fig.savefig("assets/daisy_world_simple.png")
+    fig.savefig("results/daisy_world_simple.png")
 
 
