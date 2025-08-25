@@ -1,4 +1,5 @@
 import numpy as np
+import sympy as sp
 
 import matplotlib.pyplot as plt
 
@@ -82,14 +83,35 @@ class SimpleDaisyWorld():
         self.list_ag = []
         self.list_steps = []
 
-    def update_L(self, L):
-        
+        self.set_forcing_function()
+
+    def set_forcing_function(self, forcing_function=None):
+        """
+        forcing_function is None (default linear ramp)
+        or a callable f(L,t) that takes two args L and t,
+        the current luminosity L and t, the time
+        t = dt * step;resets to 0 at end of stellar period
+        """
+
+        if forcing_function is None:
+            self.forcing_L = self.linear_ramp
+        else:
+            self.forcing_L = forcing_function
+
+    def linear_ramp(self, current_L, tt):
+
         if self.steps % self.steps_per_period == 0:
             self.dL *= -1
-        
-        return max([min([self.max_L, L + self.dL]), self.min_L])
 
-    def step(self):
+        return self.L + self.dL
+
+    def update_L(self, tt):
+        
+        new_L = self.forcing_L(self.L, tt)
+
+        self.L = max([min([self.max_L, new_L]), self.min_L])
+
+    def step(self, my_step):
 
         # global albedo
         self.A = self.ag * self.Ag + self.aw * self.Aw + self.ab * self.Ab
@@ -114,7 +136,7 @@ class SimpleDaisyWorld():
         self.ag = self.p - self.aw - self.ab 
 
         self.steps += 1
-        self.L = self.update_L(self.L)
+        self.update_L(my_step * self.dt)
 
     def store_values(self):
         
@@ -137,8 +159,8 @@ class SimpleDaisyWorld():
     def run_sim(self, num_periods=1):
 
         for period in range(num_periods):
-            for step in range(self.steps_per_period):
-                self.step()
+            for my_step in range(self.steps_per_period):
+                self.step(my_step)
                 self.store_values()
 
     def plot_curve(self, show_habitable=False):
