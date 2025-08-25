@@ -44,13 +44,14 @@ class NCA(nn.Module):
 
     def __init__(self, number_channels=1, number_filters=5, \
             number_hidden=32, device="cpu", update_rate=0.5, clamp=1,\
-            use_bias=False):
+            use_bias=False, **kwargs):
         super().__init__()
 
         self.use_bias = use_bias
         self.number_channels = number_channels
         self.number_hidden = number_hidden
-        self.alive_mask_threshold = 0.1
+
+        self.alive_mask_threshold = kwargs.get("alive_mask_threshold", 0.1)
 
         self.my_device = torch.device(device)
 
@@ -92,15 +93,20 @@ class NCA(nn.Module):
 
         return alive_mask
 
+    def forward_model(self, x):
+
+        new_x = self.conv_0(x)
+        new_x = self.conv_1(new_x)
+
+        return new_x
+
     def forward(self, grid):
     
         update_mask = (torch.rand_like(grid, device=self.my_device) < self.update_rate) * 1.0
 
-
         perception = perceive(grid, self.filters)
 
-        new_grid = self.conv_0(perception)
-        new_grid = self.conv_1(new_grid)
+        new_grid = self.forward_model(perception)
         
         new_grid = grid + self.dt * new_grid * update_mask
 
@@ -110,7 +116,6 @@ class NCA(nn.Module):
           new_grid *= alive_mask
 
         return self.squash(new_grid)
-
 
     def get_init_grid(self, batch_size=8, dim=128):
         
@@ -148,7 +153,7 @@ class NCA(nn.Module):
         display_every = max_steps // 8 + 1
 
         self.initialize_optimizer(lr, max_steps)
-        target = target.to(self.my_device)
+        target = target.to(self.my_device).to(torch.get_default_dtype())
 
         grids = self.get_init_grid(batch_size=self.number_samples,\
                  dim = target.shape[-2])
@@ -256,14 +261,13 @@ if __name__ == "__main__": #pragma: no cover
     parser.add_argument("-t", "--exp_tag", type=str, default="temp_delete")
     parser.add_argument("-r", "--url", type=str, default="")
 
-    
-
     args = parser.parse_args()
     if len(args.url) == 0:
         this_filepath = os.path.realpath(__file__)
         this_dir = os.path.split(this_filepath)[0]
         url = os.path.join(os.path.split(this_dir)[0], "data", "images", "frogs.png")
-        
+    else:
+        url = args.url
 
     img = read_image(url, max_size=128)[:,:,:3]
     target = image_to_tensor(img)
