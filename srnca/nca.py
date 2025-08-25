@@ -54,6 +54,7 @@ class NCA(nn.Module):
         self.alive_mask_threshold = kwargs.get("alive_mask_threshold", 0.1)
         self.use_egg = kwargs.get("use_egg", False)
         self.egg_radius = kwargs.get("egg_radius", 1)
+        self.noise_strength = kwargs.get("noise_strength", 0.05)
 
         self.my_device = torch.device(device)
 
@@ -136,6 +137,9 @@ class NCA(nn.Module):
           # better results with random uniform initialization
           temp = torch.rand(batch_size, self.number_channels, dim, dim, \
                   device=self.my_device)
+
+          temp *= self.noise_strength
+
         
         return temp
 
