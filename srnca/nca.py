@@ -52,6 +52,8 @@ class NCA(nn.Module):
         self.number_hidden = number_hidden
 
         self.alive_mask_threshold = kwargs.get("alive_mask_threshold", 0.1)
+        self.use_egg = kwargs.get("use_egg", False)
+        self.egg_radius = kwargs.get("egg_radius", 1)
 
         self.my_device = torch.device(device)
 
@@ -119,16 +121,21 @@ class NCA(nn.Module):
 
     def get_init_grid(self, batch_size=8, dim=128):
         
-        temp = torch.zeros(batch_size, self.number_channels, dim, dim, \
-                device=self.my_device)
-        
-        dim0 = dim // 2 - dim // 16
-        dim1 = dim // 2 + dim // 16
-        dimm = dim // 8
+        if self.use_egg:
+          temp = torch.ones(batch_size, self.number_channels, dim, dim, \
+                  device=self.my_device)
 
-        temp[:,:,dim0:dim1, dim0:dim1] = 0.99 \
-                + 1e-2 * torch.rand(batch_size, self.number_channels,\
-                dimm, dimm)
+          dim0 = dim // 2 - self.egg_radius
+          dim1 = dim // 2 + self.egg_radius
+          dimm = self.egg_radius * 2
+
+          temp[:,:,dim0:dim1, dim0:dim1] = 0.99 \
+                  + 1e-2 * torch.rand(batch_size, self.number_channels,\
+                  dimm, dimm)
+        else:
+          # better results with random uniform initialization
+          temp = torch.rand(batch_size, self.number_channels, dim, dim, \
+                  device=self.my_device)
         
         return temp
 
