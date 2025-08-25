@@ -1,0 +1,31 @@
+vesicles dataset image sources
+
+* Dworkin vesicles: public domain (NASA Ames research)
+pq0415080006.jpeg
+pq0415080005.jpeg
+pq0415080004.jpeg
+pq0415080001.jpeg
+https://science.gsfc.nasa.gov/691/cv/dworkin/Dworkinetal2001.pdf
+https://www.pnas.org/doi/10.1073/pnas.98.3.815
+J.P. Dworkin, D.W. Deamer, S.A. Sandford, & L.J. Allamandola, Self-assembling amphiphilic molecules: Synthesis in simulated interstellar/precometary ices, Proc. Natl. Acad. Sci. U.S.A. 98 (3) 815-819, https://doi.org/10.1073/pnas.98.3.815 (2001).
+
+ice vesicles: public domain (NASA Ames, Scott Sandford and Michel Nuevo)
+* vesicles.jpg
+https://www.nasa.gov/ices-ice-irradiation-and-organics-laboratory-for-astrobiology/
+https://web.archive.org/web/20250402161633/https://www.nasa.gov/ices-ice-irradiation-and-organics-laboratory-for-astrobiology/
+https://web.archive.org/web/20250402161633im_/https://www.nasa.gov/wp-content/uploads/2019/07/vesicles.jpg
+
+* Other NASA-funded work, copyright not certain
+* picture_1_red_snow_algae.jpg__1240x510_q85_subject_location-561%2C545_subsampling-2.jpg
+https://astrobiology.nasa.gov/news/study-examines-how-viruses-affect-algal-blooms-in-snow/
+https://web.archive.org/web/20250512212536/https://astrobiology.nasa.gov/news/study-examines-how-viruses-affect-algal-blooms-in-snow/
+https://web.archive.org/web/20240705004223/https://astrobiology.nasa.gov/uploads/filer_public_thumbnails/filer_public/2b/84/2b845113-f804-4e76-aff7-7225c3019a2a/picture_1_red_snow_algae.jpg__1240x510_q85_subject_location-561%2C545_subsampling-2.jpg
+https://journals.asm.org/doi/10.1128/msystems.00083-24
+Barno AR, Green K, Rohwer F, Silveira CB.2024.Snow viruses and their implications on red snow algal blooms. mSystems9:e00083-24.https://doi.org/10.1128/msystems.00083-24
+
+* Figure1_Task4.jpg
+https://web.archive.org/web/20250304032835/https://astrobiology.nasa.gov/nai/annual-reports/2007/ciw/project-4-prebiotic-molecular-selection-and-organization/index.html
+
+*screenshot_2024-05-15_at_54523pm.png__1240x510_q85_subject_location-800%2C434_subsampling-2.jpg
+https://astrobiology.nasa.gov/news/forming-a-double-chained-protocell/
+https://www.sciencedirect.com/science/article/pii/S245192942400069X
