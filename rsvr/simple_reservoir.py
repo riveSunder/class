@@ -164,6 +164,21 @@ def select_fitness_proportional(fitness_list: list, population: list,
 
   return new_population
   
+def calc_spectral_radius(self):
+  """
+    calculates the spectral radius of the hidden layer of the reservoir
+
+    values slightly less than 1.0 are consider ideal
+  """
+
+  eigenvalues = np.linalg.eig(self.weights_hidden)[0]
+
+  spectral_radius =  np.max(eigenvalues)
+
+  self.res_spectral_radius = 1.0 * spectral_radius
+
+  return spectral_radius
+
 def evolve(population_size: int, number_generations: int, my_seed: int,
       out_dim: int, exp_tag: str, env_name: str, results_path: str,
       reservoir_steps: int, number_runs: int, mutation_rate: float, elites: int):
