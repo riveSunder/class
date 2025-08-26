@@ -185,9 +185,9 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser()
 
   parser.add_argument("-p", "--policy_filepath", type=str, 
-      default="results/invpend_example_1754886563/invpend_example_1754886563_8_31_champion.pt")
+      default="results/inverted_pendulum_CLASS_sd13_rstps3_1756172368/gen31_ckpt8_pop.pt")
   parser.add_argument("-r", "--reservoir_filepath", type=str, 
-      default="results/invpend_example_1754886563/invpend_example_1754886563_rsvr.pt",
+      default="results/inverted_pendulum_CLASS_sd13_rstps3_1756172368/rsvr.pt",
       help="load policy or population from this filepath")
   parser.add_argument("-x", "--policy_index", type=int, default=0,
       help="visualise performance for policy at population element at `index`")
