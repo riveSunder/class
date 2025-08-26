@@ -20,16 +20,21 @@ class Reservoir(nn.Module):
       reservoir_steps: int=1, echo_only: bool=False):
     super().__init__()
 
-    self.reservoir_steps = torch.nn.Parameter(
-        torch.tensor(reservoir_steps), requires_grad=False)
+    if type(reservoir_steps) == torch.tensor:
+      self.reservoir_steps = torch.nn.Parameter(
+          reservoir_steps, requires_grad=False)
+      self.echo_only = torch.nn.Parameter(
+          echo_only, requires_grad=False)
+    else:
+      self.reservoir_steps = torch.nn.Parameter(
+          torch.tensor(reservoir_steps), requires_grad=False)
+      self.echo_only = torch.nn.Parameter(
+          torch.tensor(echo_only), requires_grad=False)
 
-    self.echo_only = torch.nn.Parameter(
-        torch.tensor(echo_only, dtype=torch.bool), requires_grad=False)
-
-    self.weights_in = torch.nn.Parameter(weights_in, requires_grad=False)
-    self.weights_out = torch.nn.Parameter(weights_out, requires_grad=False)
-    self.weights_hidden = torch.nn.Parameter(weights_hidden, requires_grad=False)
     self.act = torch.tanh
+    self.weights_in = torch.nn.Parameter(weights_in.clone(), requires_grad=False)
+    self.weights_out = torch.nn.Parameter(weights_out.clone(), requires_grad=False)
+    self.weights_hidden = torch.nn.Parameter(weights_hidden.clone(), requires_grad=False)
 
   def forward(self, obs: np.ndarray, return_activations: bool=False):
 
@@ -164,18 +169,18 @@ def select_fitness_proportional(fitness_list: list, population: list,
 
   return new_population
   
-def calc_spectral_radius(self):
+def calc_spectral_radius(reservoir):
   """
     calculates the spectral radius of the hidden layer of the reservoir
 
     values slightly less than 1.0 are consider ideal
   """
 
-  eigenvalues = np.linalg.eig(self.weights_hidden)[0]
+  eigenvalues = np.linalg.eig(reservoir.weights_hidden)[0]
 
-  spectral_radius =  np.max(eigenvalues)
+  spectral_radius =  np.max(np.abs(eigenvalues))
 
-  self.res_spectral_radius = 1.0 * spectral_radius
+  reservoir.res_spectral_radius = 1.0 * spectral_radius
 
   return spectral_radius
 
