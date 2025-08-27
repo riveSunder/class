@@ -193,6 +193,8 @@ if __name__ == "__main__":
       help="visualise performance for policy at population element at `index`")
   parser.add_argument("-d", "--out_dim", type=int, default=64,
       help="number of elements in the reservoir output/policy input")
+  parser.add_argument("-g", "--save_gif", type=int, default=0,
+      help="set to 1 to save animation in gif format")
   parser.add_argument("-n", "--in_dim", type=int, default=4,
       help="input dimensions from the environment observations")
   parser.add_argument("-m", "--hidden_dim", type=int, default=128,
@@ -234,6 +236,7 @@ if __name__ == "__main__":
 
   policy_name = os.path.splitext(os.path.split(policy_filepath)[-1])[0]
   animation_filepath = os.path.join("results", f"{policy_name}.mp4")
+  gif_filepath = os.path.join("results", f"{policy_name}.gif")
 
   fitness = 0.
   fig, ax = plot_reservoir_env(reservoir, policy, env)
@@ -241,3 +244,11 @@ if __name__ == "__main__":
   matplotlib.animation.FuncAnimation(fig, update_fig_reservoir_env, 
       frames=num_frames, interval=50).save(animation_filepath)
 
+  if args.save_gif:
+    obs = env.reset()[0]
+
+    fitness = 0.
+    fig, ax = plot_reservoir_env(reservoir, policy, env)
+
+    matplotlib.animation.FuncAnimation(fig, update_fig_reservoir_env,
+        frames=num_frames, interval=50).save(gif_filepath)
