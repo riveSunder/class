@@ -75,7 +75,62 @@ There's a lot more to explore in Golly, and in CA in general. Hopefully this int
 
 ## simple daisyworld
 
-`simple_dw` is an implementation of Watson and Lovelock's original 0-dimensional daisyworld model ([WALO1983](), [LO1982]())
+`simple_dw` is an implementation of Watson and Lovelock's original 0-dimensional daisyworld model ([WALO1983](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1600-0889.1983.tb00031.x), [LO1982, pp. ]())
+
+We've set up a Jupyter notebook for experimenting with Watson and Lovelock's 0-dimensional daisyworld model. To get started, enter 
+
+
+```
+jupyter notebook
+```
+
+on the command line. This should open a Jupyter server to the current directory in your default browser. Navigate to the `notebooks` folder. Then, open the `daisyworld.ipynb` notebook. The code for running a daisyworld instance is contained in the notebook, and there are some variables that you can modify to get an idea how the model behaves in different scenarios.
+
+```
+## albedo of light and dark daisies
+albedo_light_daisies = 0.75
+albedo_dark_daisies = 0.25
+albedo_ground = 0.5
+
+## starting populations of daisies, in proportion of ground covered
+cover_light_daisies = 0.2
+cover_dark_daisies = 0.2
+cover_arable_ground = 1.0
+```
+
+You can change the albedo (amount of light reflected) of the bare ground, light, and dark daisies to be used in the model. You can also change the initial ground coverage by each type of daisy and total amount of soil available for daisies to grow on.
+
+The default scenario is a linear ramp of increasing stellar output, driven by a variable caled `luminosity`. This gradual increase in output mimics the stellar life cycle of our own star, Sol, the Sun. The strength of solar radiation was much weaker in the distant past of the Archaen period, including the time when life (our ancestors) originated. Even though the strength of the sun has increased over time, the temperature of Earth has always stayed in a range that is amenable to supporting life. 
+
+Daisyworld is a simple model that demonstrate homeostatic control of a (very simplified) planetary climate without explicit coordination or a central controller. The daisies proliferate according to a temperature dependent growth rate, and as a consequence of this simple selective pressure the temperature of the planet stays within a viable range much longer than a daisyworld without daisies.
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/simple_daisyworld.png" title="daisyworld with a linear ramp increase in stellar luminosity as a forcing function"> 
+<br>
+<em>daisyworld with a linear ramp forcing function
+</div>
+
+You can modify the way stellar output changes over time in the daisyworld model by passing a function to the `DaisyWorld` class function `daisyworld.set_forcing_function`. There are a few examples in the notebook to get you started.
+
+```
+world = SimpleDaisyWorld()
+world.max_L = 2.0
+
+forcing = lambda x, t: (x+world.dL) + 0.0005 * np.sin(t)
+
+world.set_forcing_function(forcing)
+
+world.run_sim()
+fig, ax = world.plot_curve()
+plt.show()
+```
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/wavy_daisyworld.png" title="daisyworld with a forcing function that include a sinusoid"> 
+<br>
+<em>daisyworld with a forcing function that include a sinusoid
+</div>
+
 
 ## rsvr
 
