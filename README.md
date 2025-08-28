@@ -17,6 +17,23 @@ There are 3 Alife-adjacent substrates we've developed for CLASS exploration and 
 * `SRNCA` - 
 * `dw.simple_dw` -
 * `rsvr` - 
+* and [Golly](https://golly.sourceforge.io/)
+
+## Golly Cellular Automata (CA) Simulator
+
+Golly has a gentle and rewarding learning curve _and_ an expansive coverage of different CA systems and patterns. There is an active community of CA enthusiasts on the [conwaylife.com forums](https://conwaylife.com/forums/). Although John Conway's Game of Life was introduced to the public in 1970 (in [Martin Gardner's "Mathematical Games"](https://www.ibiblio.org/lifepatterns/october1970.html) column in Scientific American, [pdf](https://web.archive.org/web/20250202021933/https://web.stanford.edu/class/sts145/Library/life.pdf)) and has been continuously explored and developed for decades, there are still new artifacts and discoveries being made in Life-like CA. See the forum on [Turing-complete Life-like CA](https://conwaylife.com/forums/viewtopic.php?f=11&t=2597&start=125) to get an idea of the scene. 
+
+Golly is already installed in the computers we've set up for in-person CLASS 2025, but Golly is [freely available](https://sourceforge.net/projects/golly/files/golly/golly-4.3/) if you want to run it locally on your own machine and there is also a [web version](https://golly.sourceforge.io/webapp/golly.html) you can run in your browser. 
+
+Golly supports [Life-like CA](https://en.wikipedia.org/wiki/Life-like_cellular_automaton) (of which there are 262,144 different rule variants), the 256 different rule variants of [elementary CA](https://en.wikipedia.org/wiki/Elementary_cellular_automaton), John von Neumann's [original 29-state automaton](https://en.wikipedia.org/wiki/Von_Neumann_cellular_automaton), as well as more exotic options like loops, Turmites, and non-totalistic CA.
+
+    <div style="margin: auto; max-width: 100ch;" align="center">
+      <a href="docs/assets/JvNLoopReplicator.webm">
+        <img src="docs/assets/JvNLoopReplicator.jpg" title="JvNLoopReplicator.rle.gz running in Golly. The machine gradually extends 'C-arm' based on instructions flowing in from the long track extending out on the bottom right. Click for a short video of the initial activity of the machine."> 
+      </a>
+    </div>
+
+
 
 
 ## simple daisyworld
