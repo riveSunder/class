@@ -27,12 +27,45 @@ Golly is already installed in the computers we've set up for in-person CLASS 202
 
 Golly supports [Life-like CA](https://en.wikipedia.org/wiki/Life-like_cellular_automaton) (of which there are 262,144 different rule variants), the 256 different rule variants of [elementary CA](https://en.wikipedia.org/wiki/Elementary_cellular_automaton), John von Neumann's [original 29-state automaton](https://en.wikipedia.org/wiki/Von_Neumann_cellular_automaton), as well as more exotic options like loops, Turmites, and non-totalistic CA.
 
-  <a href="docs/assets/JvNLoopReplicator.webm">
-    <img src="docs/assets/JvNLoopReplicator.jpg" title="JvNLoopReplicator.rle.gz running in Golly. The machine gradually extends 'C-arm' based on instructions flowing in from the long track extending out on the bottom right. Click for a short video of the initial activity of the machine."> 
-  </a>
+<div style="margin: auto; max-width: 100ch;" align="center">
+<a href="docs/assets/JvNLoopReplicator.webm">
+<img src="docs/assets/JvNLoopReplicator.jpg" title="JvNLoopReplicator.rle.gz running in Golly. The machine gradually extends 'C-arm' based on instructions flowing in from the long track extending out on the bottom right. Click for a short video of the initial activity of the machine."> 
+</a>
+<em>A replication machine in John von Neumann's 29-state cellular automaton. Looks complicated! We can start with something simpler.</em>
+</div>
+
+### CA Basics
+
+While cellular automata are complex (in fact, many CA are capable of <a href="https://en.wikipedia.org/wiki/Turing_completeness">executing any feasible program</a>), a big part of their appeal is that they can also be very simple. CA generally have three characteristics important for us to consider: states, neighborhoods, and dynamics.
+
+* <strong>States</strong> describe the condition of each cell at any given time.
+* <strong>Neighborhoods</strong> define the other cells that a cells can interact with, giving us a concept of <em>locality</em>
+* <strong>Dynamics</strong>, or the update rule, determines the way the cell states change over time. In general, the update rule depends on the state of a cell and a cell's neighbors. 
+
+In [Life-like CA](https://en.wikipedia.org/wiki/Life-like_cellular_automaton), cells can have a state of 1 or 0 and update at each time step according to their current state and the state of their neighbors. The neighbors are defined by the _Moore neighborhood_.
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/moore_neighborhood.png" title="The Moore neighborhood (in dark purple) and cell state (in light pink)."> 
+</a>
+<em>The Moore neighborhood (in dark purple) and cell state (in light pink).</em>
+</div>
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/morley_glider_0.png" title="The Life-like CA Morley/Move is defined by the rule string B368/S245. A cell with state zero will change to a state 1 if it has 3, 6, or 8 total neighbors, and a cell with state 1 will remain unchanged with 2, 4, or 5 neighbors. All over cell states will transition to or stay in state 0."> 
+<em>The Life-like CA Morley/Move is defined by the rule string B368/S245. A cell with state zero will change to a state 1 if it has 3, 6, or 8 total neighbors, and a cell with state 1 will remain unchanged with 2, 4, or 5 neighbors. All over cell states will transition to or stay in state 0.</em>
+</div>
+
+The CA B368/S245, also known as Morley/Move, is a 2-dimensional Life-like cellular automaton. That means that the dynamics of this CA are defined by each cell state and the sum of cell states in the cell's immediate _Moore neighborhood_, shown above.  
 
 
+<div style="margin: auto; max-width: 100ch;" align="center">
+<a href="docs/assets/morley_glider.html">
+<img src="docs/assets/morley_glider_golly.gif" title="The 'pickaxe': Morley glider in motion."> 
+</a>
+<em>The Morley glider in motion</em>
+</div>
 
+There's a lot more to explore in Golly, and in CA in general. Hopefully this intro has piqued your interest!
 
 ## simple daisyworld
 
