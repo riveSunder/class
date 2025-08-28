@@ -17,6 +17,9 @@ There are 3 Alife-adjacent substrates we've developed for CLASS exploration and 
 * `SRNCA` - 
 * `dw.simple_dw` -
 * `rsvr` - 
+
+In addition to the code developed specifically for CLASS, Golly is another freely available program and a great way to explore cellular automata.
+
 * and [Golly](https://golly.sourceforge.io/)
 
 ## Golly Cellular Automata (CA) Simulator
