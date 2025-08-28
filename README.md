@@ -27,11 +27,9 @@ Golly is already installed in the computers we've set up for in-person CLASS 202
 
 Golly supports [Life-like CA](https://en.wikipedia.org/wiki/Life-like_cellular_automaton) (of which there are 262,144 different rule variants), the 256 different rule variants of [elementary CA](https://en.wikipedia.org/wiki/Elementary_cellular_automaton), John von Neumann's [original 29-state automaton](https://en.wikipedia.org/wiki/Von_Neumann_cellular_automaton), as well as more exotic options like loops, Turmites, and non-totalistic CA.
 
-    <div align="center">
-      <a href="docs/assets/JvNLoopReplicator.webm">
-        <img src="docs/assets/JvNLoopReplicator.jpg" title="JvNLoopReplicator.rle.gz running in Golly. The machine gradually extends 'C-arm' based on instructions flowing in from the long track extending out on the bottom right. Click for a short video of the initial activity of the machine."> 
-      </a>
-    </div>
+  <a href="docs/assets/JvNLoopReplicator.webm">
+    <img src="docs/assets/JvNLoopReplicator.jpg" title="JvNLoopReplicator.rle.gz running in Golly. The machine gradually extends 'C-arm' based on instructions flowing in from the long track extending out on the bottom right. Click for a short video of the initial activity of the machine."> 
+  </a>
 
 
 
