@@ -75,7 +75,7 @@ There's a lot more to explore in Golly, and in CA in general. Hopefully this int
 
 ## simple daisyworld
 
-`simple_dw` is an implementation of Watson and Lovelock's original 0-dimensional daisyworld model ([WALO1983](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1600-0889.1983.tb00031.x), [LO1982, pp. ]())
+`simple_dw` is an implementation of Watson and Lovelock's original 0-dimensional daisyworld model ([WALO1983](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1600-0889.1983.tb00031.x), [LO1983, pp. 66-72](https://wholeearth.info/p/coevolution-quarterly-summer-1983?format=spreads&index=67))
 
 We've set up a Jupyter notebook for experimenting with Watson and Lovelock's 0-dimensional daisyworld model. To get started, enter 
 
@@ -128,16 +128,71 @@ plt.show()
 <div style="margin: auto; max-width: 100ch;" align="center">
 <img src="docs/assets/wavy_daisyworld.png" title="daisyworld with a forcing function that include a sinusoid"> 
 <br>
-<em>daisyworld with a forcing function that include a sinusoid
+<em>daisyworld with a forcing function that include a sinusoid</em>
 </div>
 
+## SRNCA
+
+`SRNCA` is based on [https://github.com/rivesunder/SRNCA](https://github.com/rivesunder/SRNCA), and uses neural cellular automata (NCA) to learn to generate textures based on an example image. For example:
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/texture_img.png" title="target image (from NASA vesicle formation generation)">
+<img src="docs/assets/texture_ca.gif" title="learned texture generation">
+<br>
+<em>Target image (left) and texture generation result (right)</em>
+<img src="docs/assets/srnca_example_plot.png" title="example experiment learning curve">
+<br>
+<em>Example learning curve.</em>
+</div>
+
+Running SRNCA typically requires a relatively powerful computer with a GPU. We've set up a GPU-enabled cloud notebook for working with SRNCA and will discussed how to use it at the in-person session.  
 
 ## rsvr
+
+`rsvr` is our reservoir computing codebase. It uses a randomly initialized neural network as the reservoir, and a binary readout head: at the output the neural network reservoir is a layer of weights that can have values of either 1 or 0 (connected or not connected) which are hooked up to the actions used to control simulated robot body plans. 
+
+`rsvr` is designed to work with robotics control environments with continuous action spaces. We've tested it on tasks with the following robot types: 
+
+```
+# easier
+InvertedPendulum-v5
+
+# harder
+Swimmer-v5
+HalfCheetah-v5
+
+# much harder (probably not feasible)
+```
+
+to see a list of all environments types available in [`gymnasium`](https://gymnasium.farama.org/), the library we use for `reinforcement learning environments, call `rsvr.simple_reservoir` with the input argument `list_available_envs` set to 1:
+
+```
+python rsvr/simple_reservoir.py --list_available_envs 1
+```
+
+which prints all environments in `gymnasium` 
+
+```
+CartPole-v0
+CartPole-v1
+MountainCar-v0
+MountainCarContinuous-v0
+Pendulum-v1
+Acrobot-v1
+# ... + more!
+```
+
+(Not all of these environments are set up on CLASS computers).
+
+
+There are quite a few options you can modify when calling `rsvr.simple_reservoir`. To get a list of all the input argument options, print out "help information" by passing th `-h` flag.  
 
 ```
 python -m rsvr.simple_reservoir -h
 
 ```
+
+which yields
 
 ```
 usage: simple_reservoir.py [-h] [-e ENVIRONMENT_NAME] [-g GENERATIONS] [-d OUT_DIM] [-i ELITES] [-l LIST_AVAILABLE_ENVS] [-m MUTATION_RATE]
@@ -172,14 +227,67 @@ options:
 ```
 
 
-```
-python rsvr/simple_reservoir.py --list_available_envs 1
+`rsvr.simple_reservoir` uses a [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm). Two important inputs you can control are the population size (_e.g._ `-p 16` or `--population_size 16`) and the number of generations to evolve (`-g 16` or `--generations 16`). You can also set a tag for the experiment (used for saving experiment data) and change the environment from the default `InvertedPendulum-v5` to something else:.
+
+For example
 
 ```
-
-```
-InvertedPendulum-v5
-HalfCheetah-v5
+python -m rsvr.simple_reservoir -g 16 -p 16 --t my_experiment -e Swimmer-v5 
 ```
 
+is the same as 
+
+```
+python -m rsvr.simple_reservoir --generations 16 -population_size 16 --tag my_experiment --environment_name HalfCheetah-v5 
+```
+
+### Visualize results
+
+`rsvr` has a few tools for visualizing reservoir-based policies controlling simulated robots (`rsvr.enjoy`) and reservoir characteristics (`rsvr.plot_damping`).
+
+You can save an animation for the robot control policy with `rsvr.enjoy`:
+
+```
+python -m rsvr.enjoy -f 1024 -e HalfCheetah-v5 -p results/my_experiment_sd196884_rstps3_1756359300//gen63_ckpt8_champ.pt -r results/my_experiment_sd196884_rstps3_1756359300/rsvr.pt --bounds ' -3' 3 ' -1.2' 1.2 ' -11.' 11. -g 1
+```
+
+The animations show the inputs, reservoir, readout head output (actions), and the simulated robot in the environment. 
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<a href="">
+<img src="docs/assets/halfcheetah_gen63_ckpt8_champ.gif" title="half cheetah reservoir-based policy"> 
+</a>
+<br>
+<em>half cheetah reservoir-based policy</em>
+</div>
+
+You can also generate some visualizations of reservoir characteristcs with:
+
+```
+python -m rsvr.plot_damping -r "results/my_experiment_sd196884_rstps3_1756359300/rsvr.pt" -o class_demo_rsvr -s 512
+```
+
+Which lets you look at damping characteristics. 
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/surf_rsvr_1756172368.gif" title="damping characteristics of a control reservoir, based on response to step input of all 1s at the obs input"> 
+<br>
+<em>damping characteristics of a control reservoir, based on response to step input of all 1s at the obs input</em>
+</div>
+
+<div style="margin: auto; max-width: 100ch;" align="center">
+<img src="docs/assets/side_rsvr_1756172368.png" title="damping characteristics of a control reservoir, viewed from the side."> 
+<br>
+<em>damping characteristics of a control reservoir, viewed as a plot from the side</em>
+</div>
+
+`rsvr.plot_damping` also includes tools for calculating the [spectral radius](https://en.wikipedia.org/wiki/Spectral_radius) and fitting the [damping ratio](https://en.wikipedia.org/wiki/Damping#Damping_ratio) of the reservoir. These are important characterstics for reservoir computing (entailing a "fading memory" characteristic). Values slightly below 1.0 for both damping ratio and spectral radius are considered good for reservoir computing (though the details are beyond the scope of CLASS 2025!).
+
+
+The command for calculating damping ratio for the various nodes of the reservoir (experimental) is:
+
+```
+python -m rsvr.plot_damping -r "results/my_experiment_sd196884_rstps3_1756359300/rsvr.pt" -o class_demo_rsvr -c 1
+
+```
 
