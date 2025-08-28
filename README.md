@@ -107,7 +107,7 @@ Daisyworld is a simple model that demonstrate homeostatic control of a (very sim
 <div style="margin: auto; max-width: 100ch;" align="center">
 <img src="docs/assets/simple_daisyworld.png" title="daisyworld with a linear ramp increase in stellar luminosity as a forcing function"> 
 <br>
-<em>daisyworld with a linear ramp forcing function
+<em>daisyworld with a linear ramp forcing function</em>
 </div>
 
 You can modify the way stellar output changes over time in the daisyworld model by passing a function to the `DaisyWorld` class function `daisyworld.set_forcing_function`. There are a few examples in the notebook to get you started.
@@ -136,8 +136,8 @@ plt.show()
 `SRNCA` is based on [https://github.com/rivesunder/SRNCA](https://github.com/rivesunder/SRNCA), and uses neural cellular automata (NCA) to learn to generate textures based on an example image. For example:
 
 <div style="margin: auto; max-width: 100ch;" align="center">
-<img src="docs/assets/texture_img.png" title="target image (from NASA vesicle formation generation)">
-<img src="docs/assets/texture_ca.gif" title="learned texture generation">
+<img src="docs/assets/texture_img.png" width=40% title="target image (from NASA vesicle formation generation)">
+<img src="docs/assets/texture_ca.gif" width=40% title="learned texture generation">
 <br>
 <em>Target image (left) and texture generation result (right)</em>
 <img src="docs/assets/srnca_example_plot.png" title="example experiment learning curve">
