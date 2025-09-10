@@ -22,6 +22,7 @@ class SimpleDaisyWorld():
         self.Ag = 0.5
         self.Aw = 0.75
         self.Ab = 0.25
+        self.Ag2 = 1. * self.Ag
 
         self.max_L = 2.00
         self.min_L = 0.7
@@ -44,6 +45,10 @@ class SimpleDaisyWorld():
     def set_initial_al(self, initial_al):
         self.initial_aw = initial_al
 
+    def set_Ag2(self, Ag):
+       
+       self.Ag2 = Ag
+
     def set_Ag(self, Ag):
        
        self.Ag = Ag
@@ -60,9 +65,12 @@ class SimpleDaisyWorld():
 
         self.dL = 2 * (self.max_L - self.min_L) / self.steps_per_period
 
-        self.ag = self.initial_ag
         self.ab = self.initial_ab
         self.aw = self.initial_aw
+
+        self.initial_ag = self.p - self.initial_ab - self.initial_aw
+
+        self.ag = self.initial_ag
 
         self.L = self.initial_L
 
@@ -114,7 +122,8 @@ class SimpleDaisyWorld():
     def step(self, my_step):
 
         # global albedo
-        self.A = self.ag * self.Ag + self.aw * self.Aw + self.ab * self.Ab
+        # non-arable land has albedo Ag2
+        self.A = (1.0 - self.p) * self.Ag2 + self.ag * self.Ag + self.aw * self.Aw + self.ab * self.Ab
         # effective global temperature
         self.Te = ((self.S * self.L * (1.0 - self.A))/self.sigma)**(1/4.)
         self.T_lifeless = ((self.S * self.L * (1.0 - self.Ag))/self.sigma)**(1/4.)
@@ -178,7 +187,7 @@ class SimpleDaisyWorld():
         if show_habitable:
             pm_range = np.sqrt(1 / self.g)
 
-            my_x = [0, max(self.list_steps)//2]
+            my_x = [0, max(self.list_steps)*2]
             upper = self.Toptim + pm_range
             lower = self.Toptim - pm_range
 

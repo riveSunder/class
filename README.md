@@ -154,15 +154,29 @@ Running SRNCA typically requires a relatively powerful computer with a GPU. We'v
 `rsvr` is designed to work with robotics control environments with continuous action spaces. We've tested it on tasks with the following robot types: 
 
 ```
-# easier
+# easiest
 InvertedPendulum-v5
 
-# harder
+# not easy
 Swimmer-v5
 HalfCheetah-v5
 
-# much harder (probably not feasible)
+# harder
+Pendulum-v1
+Hopper-v5
+Walker2d-v5
+
+# quite difficult, might not be feasible
+InvertedDoublePendulum-v5
+Ant-v5
+Reacher-v5
+Pusher-v5
+
+# mega-hard, probably not feasible with rsvr
+Humanoid-v5
+HumanoidStandup-v5
 ```
+
 
 to see a list of all environments types available in [`gymnasium`](https://gymnasium.farama.org/), the library we use for `reinforcement learning environments, call `rsvr.simple_reservoir` with the input argument `list_available_envs` set to 1:
 
@@ -170,7 +184,7 @@ to see a list of all environments types available in [`gymnasium`](https://gymna
 python rsvr/simple_reservoir.py --list_available_envs 1
 ```
 
-which prints all environments in `gymnasium` 
+which prints all environments in `gymnasium`. You can also see the output [here](envs.md). 
 
 ```
 CartPole-v0
@@ -183,7 +197,6 @@ Acrobot-v1
 ```
 
 (Not all of these environments are set up on CLASS computers).
-
 
 There are quite a few options you can modify when calling `rsvr.simple_reservoir`. To get a list of all the input argument options, print out "help information" by passing th `-h` flag.  
 
@@ -287,7 +300,7 @@ Which lets you look at damping characteristics.
 The command for calculating damping ratio for the various nodes of the reservoir (experimental) is:
 
 ```
-python -m rsvr.plot_damping -r "results/my_experiment_sd196884_rstps3_1756359300/rsvr.pt" -o class_demo_rsvr -c 1
+python -m rsvr.plot_damping -r "results/my_experiment_sd196884_rstps3_1756359300/rsvr.pt" -o class_demo_rsvr --calc_exp_fit 1
 
 ```
 
