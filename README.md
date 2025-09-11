@@ -2,6 +2,7 @@
 
 <div align="center">
 <img src="docs/assets/variable_arable.gif" width=50%>
+  <br>
 <em>The effect of varying the amount of arable land (capable of supporting daisies) on Daisyworld.</em>
 </div>
 
