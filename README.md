@@ -1,7 +1,8 @@
 # Cross Labs Alife Summer School
 
 <div align="center">
-<img src="docs/assets/curious_solition_s7_config_semistable_frog000_notitle_noname.png" width=50%>
+<img src="docs/assets/variable_arable.gif" width=50%>
+<em>The effect of varying the amount of arable land (capable of supporting daisies) on Daisyworld.</em>
 </div>
 
 ## CLASS
