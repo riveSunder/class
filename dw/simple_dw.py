@@ -127,7 +127,7 @@ class SimpleDaisyWorld():
         # effective global temperature
         self.Te = ((self.S * self.L * (1.0 - self.A))/self.sigma)**(1/4.)
         self.T_lifeless = ((self.S * self.L * (1.0 - self.Ag))/self.sigma)**(1/4.)
-        # local temperature, bare ground, and white and black daisies
+        # local temperature, bare ground, and light and dark daisies
         self.Tg = (self.q * (self.A - self.Ag) + self.Te**4.)**(1/4.)
         self.Tb = (self.q * (self.A - self.Ab) + self.Te**4.)**(1/4.)
         self.Tw = (self.q * (self.A - self.Aw) + self.Te**4.)**(1/4.)
@@ -201,9 +201,9 @@ class SimpleDaisyWorld():
         labels = [line.get_label() for line in lines]
         ax[1].legend(lines, labels, loc=4)
         ax[0].plot(self.list_steps, self.list_ab, "-.", \
-                color=self.my_cmap(0), label="black daisies", lw=5, alpha=0.5)
+                color=self.my_cmap(0), label="dark daisies", lw=5, alpha=0.5)
         ax[0].plot(self.list_steps, self.list_aw, "--", \
-                color=self.my_cmap(200), label="white daisies", lw=5, alpha=0.5)
+                color=self.my_cmap(200), label="light daisies", lw=5, alpha=0.5)
         ax[0].legend()
 
         ax[1].set_xlim(0, max(self.list_steps))
