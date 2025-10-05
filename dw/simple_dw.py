@@ -209,12 +209,13 @@ class SimpleDaisyWorld():
         ax[1].set_xlim(0, max(self.list_steps))
         ax[0].set_xlim(0, max(self.list_steps))
 
+        ax[0].set_ylim(0, 1.0)
+        
         ax[0].set_ylabel("Land Area Proportion")
         ax[1].set_xlabel("Simulation Step")
         ax[1].set_ylabel("Stellar Luminosity")
         ax2.set_ylabel("Temperature (K)")
         ax[0].set_xticklabels("")
-
 
 
         return fig, ax
