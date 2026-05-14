@@ -128,9 +128,9 @@ plt.show()
 ```
 
 <div style="margin: auto; max-width: 100ch;" align="center">
-<img src="docs/assets/wavy_daisyworld.png" title="daisyworld with a forcing function that include a sinusoid"> 
+<img src="docs/assets/wavy_daisyworld.png" title="daisyworld with a forcing function that includes a sinusoid"> 
 <br>
-<em>daisyworld with a forcing function that include a sinusoid</em>
+<em>daisyworld with a forcing function that includes a sinusoid</em>
 </div>
 
 ## SRNCA
